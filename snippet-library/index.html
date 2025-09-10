@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Snippet Library</title>
+    <meta name="description" content="Searchable code snippet library for beginners. Find, filter, and copy snippets fast." />
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="stylesheet" href="https://unpkg.com/prismjs@1/themes/prism-tomorrow.min.css" />
+    <script defer src="https://unpkg.com/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://unpkg.com/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>window.Prism = window.Prism || {}; Prism.plugins = Prism.plugins || {}; Prism.plugins.autoloader = { languages_path: 'https://unpkg.com/prismjs@1/components/' };</script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

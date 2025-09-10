@@ -1,0 +1,37 @@
+/* Layout */
+#root { display: block; }
+.container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.topbar { display: grid; gap: .75rem; text-align: left; }
+.title { margin: 0; font-size: 1.5rem; }
+.subtitle { margin: 0; color: #888; font-size: .95rem; }
+
+/* Controls */
+.controls { display: grid; grid-template-columns: 1fr minmax(130px, 200px); gap: .5rem; }
+.search { padding: .65rem .75rem; border-radius: .625rem; border: 1px solid #3a3a3a; background: #121212; color: #eaeaea; }
+.search::placeholder { color: #9a9a9a; }
+.select { padding: .65rem .75rem; border-radius: .625rem; border: 1px solid #3a3a3a; background: #121212; color: #eaeaea; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { padding: .4rem .7rem; border-radius: 999px; border: 1px solid #3a3a3a; background: #151515; color: #eaeaea; cursor: pointer; font-size: .9rem; }
+.chip.active { background: #2b2b2b; border-color: #646cff; }
+.chip.clear { background: transparent; border-style: dashed; color: #bbb; }
+
+/* Grid */
+.grid { margin-top: 1rem; display: grid; grid-template-columns: 1fr; gap: .75rem; }
+@media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+/* Card */
+.card { display: grid; gap: .5rem; padding: 1rem; border: 1px solid #2e2e2e; border-radius: .75rem; background: #111; }
+.card-header { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.card-title { margin: 0; font-size: 1.05rem; }
+.badge { font-size: .8rem; color: #bbb; border: 1px solid #333; border-radius: .4rem; padding: .2rem .45rem; }
+.tag-row { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tag { font-size: .8rem; color: #aaa; background: #191919; border: 1px solid #2a2a2a; border-radius: .4rem; padding: .15rem .4rem; }
+.code-block { margin: 0; background: #0b0b0b; border: 1px solid #202020; border-radius: .6rem; padding: .75rem; overflow: auto; font-size: .9rem; }
+.copy-btn { justify-self: end; padding: .4rem .7rem; border-radius: .5rem; border: 1px solid #343434; background: #181818; color: #eaeaea; }
+.copy-btn:hover { border-color: #646cff; }
+
+.muted { color: #999; margin: 1rem 0; }
+.footer { margin: 2rem 0 1rem; color: #777; text-align: center; }

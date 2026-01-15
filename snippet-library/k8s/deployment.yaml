@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snippet-library
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: snippet-library
+  template:
+    metadata:
+      labels:
+        app: snippet-library
+    spec:
+      containers:
+        - name: snippet-library-react-app
+          image: faith53/snippet-library-react-app:1.0
+          ports:
+            - containerPort: 80

@@ -1,12 +1,12 @@
 {
   "name": "snippet-library",
-  "homepage": "https://faith-53.github.io/Code-Snippet",
+  "homepage": "https://github.com/faith-53/Code-Snippet",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

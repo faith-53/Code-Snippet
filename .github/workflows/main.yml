@@ -1,60 +1,47 @@
-name: Deploy React App to S3
+name: Deploy to S3
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 env:
   AWS_REGION: eu-north-1
   S3_BUCKET_NAME: codesnippetlibrary
-  #CLOUDFRONT_DISTRIBUTION_ID: your-distribution-id  # Optional, for CloudFront
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: snippet-library  # Add this!
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Navigate to project folder
-      run: cd snippet-library
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Build application
-      run: npm run build
-      env:
-        CI: false
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Deploy to S3
-      run: |
-        aws s3 cp ./build/ s3://${{ env.S3_BUCKET_NAME }} \
-          --recursive \
-          --exclude "*" \
-          --include "*.html" \
-          --include "service-worker.js" \
-          --include "manifest.json" \
-          --metadata-directive REPLACE \
-          --cache-control "no-cache"
-        
-        echo "Deployment completed!"
-
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: snippet-library/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+        env:
+          CI: false
+      
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Deploy to S3
+        run: |
+          aws s3 sync build/ s3://${{ env.S3_BUCKET_NAME }} --delete
+          echo "✅ Deployed!"

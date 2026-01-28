@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: eu-north-1
   S3_BUCKET_NAME: codesnippetlibrary
   #CLOUDFRONT_DISTRIBUTION_ID: your-distribution-id  # Optional, for CloudFront
 
@@ -44,18 +44,14 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./build/ s3://${{ env.S3_BUCKET_NAME }} \
-          --delete \
-          --cache-control "max-age=31536000,public" \
-          --exclude "index.html" \
-          --exclude "service-worker.js" \
-          --exclude "manifest.json"
-
-        # Upload HTML files with different cache settings
-        aws s3 sync ./build/ s3://${{ env.S3_BUCKET_NAME }} \
-          --delete \
-          --cache-control "no-cache" \
+        aws s3 cp ./build/ s3://${{ env.S3_BUCKET_NAME }} \
+          --recursive \
           --exclude "*" \
           --include "*.html" \
           --include "service-worker.js" \
-          --include "manifest.json"
+          --include "manifest.json" \
+          --metadata-directive REPLACE \
+          --cache-control "no-cache"
+        
+        echo "Deployment completed!"
+

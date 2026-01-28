@@ -1,0 +1,19 @@
+name: Deploy to S3
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Debug - Show workflow is running
+      run: echo "🚀 GitHub Actions workflow is working!"
+    
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: List files
+      run: ls -la
